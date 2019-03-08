@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/site.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container eb_win_width">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div style="height:30px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row clearfix">
+        <div class="col-md-2 column">
+
+            <div class="panel-group" id="panel-512272">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <a class="panel-title" data-toggle="collapse"
+                           data-parent="#panel-512272" href="#panel-element-133597">基础数据</a>
+                    </div>
+                    <div id="panel-element-133597" class="panel-collapse in">
+                            <ul class="list-group">
+                                <li class="list-group-item"><a th:href="@{/productTypeList}" target="infoWin">类别管理</a></li>
+                                <li class="list-group-item"><a th:href="@{/productList}" target="infoWin">物品管理</a></li>
+                            </ul>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <a class="panel-title collapsed" data-toggle="collapse"
+                           data-parent="#panel-512272" href="#panel-element-810762">库存数据</a>
+                    </div>
+                    <div id="panel-element-810762" class="panel-collapse collapse">
+                            <ul class="list-group">
+                                <li class="list-group-item"><a th:href="@{/productReceiveStockList}" target="infoWin">待收库存列表</a></li>
+                                <li class="list-group-item"><a th:href="@{/productStockList}" target="infoWin">现有库存列表</a></li>
+                                <li class="list-group-item"><a th:href="@{/productReceiveIn}" target="infoWin">待收入库</a></li>
+                                <li class="list-group-item"><a th:href="@{/productReceiveReject}" target="infoWin">待收退货</a></li>
+                                <li class="list-group-item"><a th:href="@{/productCurrentIn}" target="infoWin">物品入库</a></li>
+                                <li class="list-group-item"><a th:href="@{/productCurrentOut}" target="infoWin">物品出库</a></li>
+                            </ul>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <a class="panel-title collapsed" data-toggle="collapse"
+                           data-parent="#panel-512272" href="#panel-element-812222">查询统计</a>
+                    </div>
+                    <div id="panel-element-812222" class="panel-collapse collapse">
+                        <ul class="list-group">
+                            <li class="list-group-item"><a th:href="@{/productStockReport}" target="infoWin">库存查询</a></li>
+                            <li class="list-group-item"><a th:href="@{/productReceiveStockChange}" target="infoWin">待收库存变动</a></li>
+                            <li class="list-group-item"><a th:href="@{/productCurrentStockChange}" target="infoWin">现有库存变动</a></li>
+                            <li class="list-group-item"><a th:href="@{/productSaleTop}" target="infoWin">销售排名</a></li>
+                            <li class="list-group-item"><a th:href="@{/productSaleCalc}" target="infoWin">销售统计</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <a class="panel-title collapsed" data-toggle="collapse"
+                           data-parent="#panel-512272" href="#panel-element-810768">系统管理</a>
+                    </div>
+                    <div id="panel-element-810768" class="panel-collapse collapse">
+                            <ul class="list-group">
+                                <li class="list-group-item"><a th:href="@{/userList}" target="infoWin">用户管理</a></li>
+                                <li class="list-group-item"><a th:href="@{/sysBakList}" target="infoWin">数据备份</a></li>
+                            </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-10 column">
+            <iframe src="default.html" name="infoWin" frameborder="0" width="100%" height="550"></iframe>
+        </div>
+    </div>
+</div>
+</body>
+</html>

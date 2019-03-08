@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/site.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        用户列表
+        <button class="btn btn-primary" style="position:absolute;right:24px;top:5px;" onclick="window.location='userEdit'">添加</button>
+    </div>
+    <div class="panel-body">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>编号</th>
+                <th>登录名</th>
+                <th>姓名</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="userInfo:${userInfoList}">
+                <td th:text="${userInfo.userId}">a</td>
+                <td th:text="${userInfo.loginName}">b</td>
+                <td th:text="${userInfo.userName}">c</td>
+                <td><button class="btn-primary btn" th:onclick="'javascript:deleteUser('+${userInfo.userId}+')'">删除</button></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+<script>
+    function deleteUser(userId){
+        if(window.confirm("你确定删除吗？")==1){
+        window.location="deleteUserInfo?userId="+userId;
+        }
+    }
+</script>
+</html>

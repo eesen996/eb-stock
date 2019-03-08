@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/site.css">
+    <link rel="stylesheet" href="css/bootstrap-treeview.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-treeview.js"></script>
+    <script src="js/jquery.validate.min.js"></script>
+    <script src="js/jquery.message_cn.js"></script>
+</head>
+<script>
+    $(function(){
+        $("#prodForm").validate();
+    })
+</script>
+<body>
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">物品类别目录</h4>
+            </div>
+            <div class="modal-body"><div id="treeview"></div></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        物品资料编辑
+
+    </div>
+    <div class="panel-body">
+        <form method="post" action="productSave" id="prodForm">
+            <div class="form-group">
+                <label for="prodName">物品名称</label>
+                <input type="text" class="form-control required" id="prodName" name="prodName" >
+            </div>
+            <div class="form-group">
+                <label for="prodNo">物品货号</label>
+                <input type="text" class="form-control" id="prodNo" name="prodNo">
+            </div>
+            <div class="form-group">
+                <label for="productType">所属类别</label>
+                <div class="input-group">
+                <input type="hidden" name="productType.prodTypeId" id="prodTypeId" required>
+                <input type="text" class="form-control btn_choose required" id="productType" name="productName" readonly>
+                <span id="btn_choose" class="input-group-addon btn_choose">选择</span>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">保存</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    $(function(){
+        //构建类别目录树
+        function buildDomTree(json){
+            var data = [];
+            //console.log("解析json："+json);
+            function walk(json, data) {
+                if (!json) { return; }
+                $.each(json, function (id, item) {
+                    var obj = {
+                        id: item.prodTypeId,
+                        text: item.prodTypeName
+                    };
+                    //console.log("child json:"+item.childNodeList)
+                    if (item.childNodeList.length > 0) {
+                        obj.nodes = [];
+                        walk(item.childNodeList, obj.nodes);
+                    }
+                    data.push(obj);
+                });
+            }
+            console.log("json:"+json)
+            walk(json, data);
+            return data;
+        }
+
+        $(".btn_choose").click(function(){
+            $.ajax({
+                "type" : 'post',
+                "url" : 'productTypeTree',
+                "dataType" : "json",
+                "success" : function(json) {
+                    $('#treeview').treeview({
+                        data: buildDomTree(json),
+                        onNodeSelected: function(event, node) {
+                            console.log(node);
+                            $("#prodTypeId").val(node.id);
+                            $("#productType").val(node.text);
+                            $("#myModal1").modal('hide');
+                        }
+                    });
+                }
+            })
+            $("#myModal1").modal('show');
+        });
+    })
+</script>

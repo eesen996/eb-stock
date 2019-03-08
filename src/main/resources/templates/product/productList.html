@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/site.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="modal fade" id="prodParamModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">物品参数分类明细</h4>
+            </div>
+            <div class="modal-body" id="prodParamBtn"></div>
+            <div class="modal-body" id="prodParamList">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-block" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        物品列表
+    </div>
+    <div class="panel-body">
+        <ul class="search_input">
+            <li>名称：<input type="text" name="prodName" id="prodName" th:value="${prodName}"></li>
+            <li>货号：<input type="text" name="prodNo" id="prodNo" th:value="${prodNo}"></li>
+            <li>类型：<input type="text" name="prodTypeName" id="prodTypeName" th:value="${prodTypeName}"></li>
+            <li><a class="btn btn-primary" id="search_prod_btn">查询</a></li>
+            <li><a class="btn btn-primary" href="productPreAdd">添加</a></li>
+        </ul>
+    </div>
+    <div class="panel-body">
+        <table id="treeTable"  class="table table-bordered">
+            <tr><td>编号</td><td>物品名称</td><td>物品货号</td><td>所属类别</td><td>物品参数明细</td><td>&nbsp;</td></tr>
+            <tr th:each="product:${productList}">
+                <td th:text="${product.prodId}">a</td>
+                <td th:text="${product.prodName}">b</td>
+                <td th:text="${product.prodNo}">c</td>
+                <td th:text="${product.productType.prodTypeName}">c</td>
+                <td th:text="${product.productParameterList.size()+'个分类明细'}"
+                    th:onclick="'javascript:showProductParameter('+${product.prodId}+')'"></td>
+                <td align="right" width="20%">
+                    <input type="button" value="修改" class="btn btn-primary" th:onclick="'javascript:updateProduct('+${product.prodId}+')'">&nbsp;
+                    <input type="button" value="删除" class="btn btn-primary" th:onclick="'javascript:deleteProduct('+${product.prodId}+')'"></td>
+            </tr>
+        </table>
+        <ul class="pagination">
+            <li><a href="#">共<span th:text="${page.pageCnt}"></span>页,<span th:text="${page.row}"></span>
+                条记录，当前<span th:text="${page.pageNo}"></span>页</a></li>
+            <li><a href="javascript:gotoPage(1)" onclick="">首页</a></li>
+            <li><a th:href="'javascript:gotoPage('+${page.getPageNo()-1}+')'">上页</a></li>
+            <li><a th:href="'javascript:gotoPage('+${page.getPageNo()+1}+')'">下页</a></li>
+            <li><a th:href="'javascript:gotoPage('+${page.getPageCnt()}+')'">末页</a></li>
+        </ul>
+    </div>
+</div>
+
+<script th:inline="javascript" >
+    function gotoPage(pageNo){
+        var prodName=$("#prodName").val();
+        var prodNo=$("#prodNo").val();
+        var prodTypeName=$("#prodTypeName").val();
+        window.location=encodeURI("productList?prodName="+prodName+"&prodNo="+prodNo+"&prodTypeName="+prodTypeName+"&pageNo="+pageNo);
+    }
+    function updateProduct(prodId){
+        window.location=encodeURI("productPreUpdate?productId="+prodId);
+    }
+    function deleteProduct(prodId){
+        if(window.confirm("你确定删除吗？")==1){
+            window.location=encodeURI("productDelete?productId="+prodId);
+        }
+    }
+    function prodParamPreAdd(prodId){
+        window.location=encodeURI("prodParamPreAdd?prodId="+prodId)
+    }
+    function deleteProdParam(prodParamId){
+        if(window.confirm("你确定删除这个规格参数")==1){
+            window.location=encodeURI("prodParamDelete?prodParamId="+prodParamId);
+        }
+    }
+    function deleteProdParamBat(){
+        var cks=$("input[name=ppIds]");
+        var param=new Array();
+        for(var i=0;i<cks.length;i++){
+            if(cks[i].checked){
+                param[i]=cks[i].value;
+            }
+        }
+        //alert(param)
+        window.location=encodeURI("prodParamDeleteBat?param="+param);
+    }
+    function showProductParameter(prodId){
+        $("#prodParamBtn").html("");
+        $("#prodParamBtn").append("<button onclick='prodParamPreAdd("+prodId+")' class='btn btn-primary' style='margin-right: 20px;margin-left: 300px;'>添加物品分类参数</button>");
+        $("#prodParamBtn").append("<button onclick='deleteProdParamBat()' class='btn btn-primary'>批量删除</button>");
+        $.ajax({
+            url:"prodParamList",
+            type:"post",
+            data:{"prodId":prodId},
+            dataType: "json",
+            success:function (data) {
+                if(data.code==-1){
+                    alert(data.msg)
+                }else if(data.code==0){
+                    $("#prodParamList").html("");
+                    $("#prodParamList").append("<div>"+data.msg+"</div>")
+                }else if(data.code==1){
+                    $("#prodParamList").html("");
+                    $("#prodParamList").append("<table class='table table-bordered'></table>")
+                    $("#prodParamList").find("table").append("<tr><td>&nbsp;</td><td>编号</td><td>物品参数</td><td>&nbsp;</td></tr>");
+                    $(data.obj).each(function(index,item){
+                        console.log(item)
+                        $("#prodParamList").find("table").append("<tr><td><input class='checkbox' type='checkbox' name='ppIds' value='"+item.prodParamId+"'/> </td><td>"+item.prodParamId+"</td>" +
+                            "<td>"+item.prodParamName+"</td><td><button class='btn btn-primary' onclick='deleteProdParam("+item.prodParamId+")'>删除</button></td></tr>");
+                    });
+                }
+                $("#prodParamModel").modal("show");
+            }
+        });
+    }
+    $(function(){
+        $("#search_prod_btn").click(function () {
+            var prodName=$("#prodName").val();
+            var prodNo=$("#prodNo").val();
+            var prodTypeName=$("#prodTypeName").val();
+            window.location=encodeURI("productList?prodName="+prodName+"&prodNo="+prodNo+"&prodTypeName="+prodTypeName);
+        })
+    })
+</script>
+</body>
+</html>

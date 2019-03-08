@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/site.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        数据备份列表
+        <button class="btn btn-primary" style="position:absolute;right:24px;top:5px;" onclick="window.location='sysBak'">备份</button>
+    </div>
+    <div class="panel-body">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>备份文件</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="fileName:${baklist}">
+                <td th:text="${fileName}">a</td>
+                <td><button class="btn-primary btn" th:onclick="'javascript:deleteBakFile(\''+${fileName}+'\')'">删除</button></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+<script>
+    function deleteBakFile(fileName){
+        if(window.confirm("你确定删除吗？")==1){
+            window.location="deleteBakFile?fileName="+fileName;
+        }
+    }
+</script>
+</html>

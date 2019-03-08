@@ -1,0 +1,51 @@
+2019-01-06 10:04:55.950 [main] INFO  com.yun.YunEbStockApplication - Starting YunEbStockApplication on USER-20181202BJ with PID 8376 (E:\workspace\yun-eb-stock\target\classes started by Administrator in E:\workspace\yun-eb-stock)
+2019-01-06 10:04:55.954 [main] INFO  com.yun.YunEbStockApplication - No active profile set, falling back to default profiles: default
+2019-01-06 10:04:56.057 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 5.3.6.Final
+2019-01-06 10:04:56.290 [main] INFO  o.s.b.c.e.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@130161f7: startup date [Sun Jan 06 10:04:56 CST 2019]; root of context hierarchy
+2019-01-06 10:04:57.816 [main] INFO  o.s.b.c.e.tomcat.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8080 (http)
+2019-01-06 10:04:57.826 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2019-01-06 10:04:57.828 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+2019-01-06 10:04:57.954 [localhost-startStop-1] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2019-01-06 10:04:57.955 [localhost-startStop-1] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 1665 ms
+2019-01-06 10:04:58.113 [localhost-startStop-1] INFO  o.s.boot.web.servlet.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+2019-01-06 10:04:58.119 [localhost-startStop-1] INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+2019-01-06 10:04:58.119 [localhost-startStop-1] INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2019-01-06 10:04:58.120 [localhost-startStop-1] INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2019-01-06 10:04:58.120 [localhost-startStop-1] INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'requestContextFilter' to: [/*]
+2019-01-06 10:04:58.682 [main] INFO  o.s.orm.jpa.LocalContainerEntityManagerFactoryBean - Building JPA container EntityManagerFactory for persistence unit 'default'
+2019-01-06 10:04:58.693 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-01-06 10:04:58.762 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {5.0.12.Final}
+2019-01-06 10:04:58.764 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+2019-01-06 10:04:58.765 [main] INFO  org.hibernate.cfg.Environment - HHH000021: Bytecode provider name : javassist
+2019-01-06 10:04:58.808 [main] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-01-06 10:04:58.928 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2019-01-06 10:04:59.484 [main] INFO  o.s.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-01-06 10:04:59.695 [main] INFO  o.h.hql.internal.QueryTranslatorFactoryInitiator - HHH000397: Using ASTQueryTranslatorFactory
+2019-01-06 10:04:59.808 [main] WARN  org.hibernate.hql.internal.ast.HqlSqlWalker - [DEPRECATION] Encountered positional parameter near line 1, column 54 in HQL: [from com.yun.user.model.UserInfo u where u.loginName=? and u.loginPass=?].  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+2019-01-06 10:04:59.810 [main] WARN  org.hibernate.hql.internal.ast.HqlSqlWalker - [DEPRECATION] Encountered positional parameter near line 1, column 72 in HQL: [from com.yun.user.model.UserInfo u where u.loginName=? and u.loginPass=?].  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+2019-01-06 10:05:00.277 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@130161f7: startup date [Sun Jan 06 10:04:56 CST 2019]; root of context hierarchy
+2019-01-06 10:05:00.354 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/productTypeUpdate]}" onto public java.lang.String com.yun.product.controller.ProductTypeController.productTypeUpdate(java.lang.Integer,org.springframework.ui.Model)
+2019-01-06 10:05:00.355 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/productTypeDelete]}" onto public java.lang.String com.yun.product.controller.ProductTypeController.productTypeDelete(java.lang.Integer,javax.servlet.http.HttpServletResponse) throws java.io.IOException
+2019-01-06 10:05:00.356 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/productTypeSave]}" onto public java.lang.String com.yun.product.controller.ProductTypeController.productTypeSave(com.yun.product.model.ProductType)
+2019-01-06 10:05:00.356 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/productTypeEdit]}" onto public java.lang.String com.yun.product.controller.ProductTypeController.productTypeEdit()
+2019-01-06 10:05:00.356 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/productTypeTree]}" onto public java.util.List<com.yun.product.model.ProductType> com.yun.product.controller.ProductTypeController.productTypeTree()
+2019-01-06 10:05:00.356 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/productTypeList]}" onto public java.lang.String com.yun.product.controller.ProductTypeController.productTypeList(org.springframework.ui.Model)
+2019-01-06 10:05:00.357 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/main]}" onto public java.lang.String com.yun.user.controller.MainController.main()
+2019-01-06 10:05:00.358 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/userList]}" onto public java.lang.String com.yun.user.controller.UserController.userList(org.springframework.ui.Model)
+2019-01-06 10:05:00.358 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/login]}" onto public java.lang.String com.yun.user.controller.UserController.login(java.lang.String,java.lang.String,javax.servlet.http.HttpSession)
+2019-01-06 10:05:00.358 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/userEdit]}" onto public java.lang.String com.yun.user.controller.UserController.userEdit()
+2019-01-06 10:05:00.358 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/userSave]}" onto public java.lang.String com.yun.user.controller.UserController.userSave(com.yun.user.model.UserInfo)
+2019-01-06 10:05:00.362 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2019-01-06 10:05:00.362 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2019-01-06 10:05:00.398 [main] INFO  o.s.web.servlet.handler.SimpleUrlHandlerMapping - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2019-01-06 10:05:00.399 [main] INFO  o.s.web.servlet.handler.SimpleUrlHandlerMapping - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2019-01-06 10:05:00.441 [main] INFO  o.s.web.servlet.handler.SimpleUrlHandlerMapping - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2019-01-06 10:05:00.920 [main] INFO  o.s.b.a.w.WebMvcAutoConfiguration$WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2019-01-06 10:05:01.235 [main] INFO  o.s.jmx.export.annotation.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+2019-01-06 10:05:01.261 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2019-01-06 10:05:01.276 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2019-01-06 10:05:01.293 [main] INFO  org.apache.tomcat.util.net.NioSelectorPool - Using a shared selector for servlet write/read
+2019-01-06 10:05:01.317 [main] INFO  o.s.b.c.e.tomcat.TomcatEmbeddedServletContainer - Tomcat started on port(s): 8080 (http)
+2019-01-06 10:05:01.323 [main] INFO  com.yun.YunEbStockApplication - Started YunEbStockApplication in 6.201 seconds (JVM running for 7.392)

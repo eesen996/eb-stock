@@ -1,0 +1,1 @@
+alter table product_parameter add COLUMN param_state int default 0

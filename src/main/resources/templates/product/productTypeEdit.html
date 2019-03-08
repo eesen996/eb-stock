@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/site.css">
+    <link rel="stylesheet" href="css/bootstrap-treeview.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-treeview.js"></script>
+    <script src="js/jquery.validate.min.js"></script>
+    <script src="js/jquery.message_cn.js"></script>
+</head>
+<script>
+    $(function(){
+        $("#prodTypeForm").validate();
+    })
+</script>
+<body>
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">物品类别目录</h4>
+            </div>
+            <div class="modal-body"><div id="treeview"></div></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        产品类别编辑
+    </div>
+    <div class="panel-body">
+        <form method="post" action="productTypeSave" id="prodTypeForm">
+            <div class="form-group">
+                <label for="prodTypeName">类别名称</label>
+                <input type="text" class="form-control required" id="prodTypeName" name="prodTypeName" >
+            </div>
+            <div class="form-group">
+                <label for="parentType">上级类别</label>
+                <div class="input-group">
+                <input type="hidden" id="parentId" name="parentProdType.prodTypeId" value="0">
+                <input type="text" class="form-control btn_choose" id="parentType" name="parentType" value="" placeholder="如果没有选择上级，该类别是一级类别" readonly>
+                <span id="btn_choose" class="input-group-addon btn_choose">选择</span>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block" >保存</button>
+        </form>
+    </div>
+</div>
+<script>
+    $(function(){
+        //构建类别目录树
+        function buildDomTree(json){
+            var data = [];
+            //console.log("解析json："+json);
+            function walk(json, data) {
+                if (!json) { return; }
+                $.each(json, function (id, item) {
+                    var obj = {
+                        id: item.prodTypeId,
+                        text: item.prodTypeName
+                    };
+                    //console.log("child json:"+item.childNodeList)
+                    if (item.childNodeList.length > 0) {
+                        obj.nodes = [];
+                        walk(item.childNodeList, obj.nodes);
+                    }
+                    data.push(obj);
+                });
+            }
+
+            walk(json, data);
+            return data;
+        }
+
+        $(".btn_choose").click(function(){
+            $.ajax({
+                "type" : 'post',
+                "url" : 'productTypeTree',
+                "dataType" : "json",
+                "success" : function(json) {
+                    $('#treeview').treeview({
+                        data: buildDomTree(json),
+                        onNodeSelected: function(event, node) {
+                            console.log(node);
+                            $("#parentId").val(node.id);
+                            $("#parentType").val(node.text);
+                            $("#myModal1").modal('hide');
+                        },
+                        onNodeUnselected: function (event, node) {
+                            //console.log(node);
+                            $("#parentId").val(0);
+                            $("#parentType").val("");
+                        }
+                    });
+                }
+            })
+            $("#myModal1").modal('show');
+        });
+    })
+</script>
+</body>
+</html>

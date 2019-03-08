@@ -1,0 +1,1 @@
+insert into user_info values(null,'admin','123','李云');

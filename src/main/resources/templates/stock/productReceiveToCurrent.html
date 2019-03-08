@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/site.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.validate.min.js"></script>
+    <script src="js/jquery.message_cn.js"></script>
+    <script type="text/javascript" src="js/My97DatePicker/WdatePicker.js"></script>
+</head>
+<script>
+    $(function(){
+        $("#prodReceToStockFrom").validate();
+    })
+</script>
+<body>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        待收库存转入现有库存
+    </div>
+    <div class="panel-body">
+        <form method="post" action="productReceiveToCurrentSave" id="prodReceToStockFrom">
+            <div class="form-group">
+                <label for="tradeDate">转入日期：</label>
+                <input type="hidden" name="prodReceStockId" th:value="${productReceiveStock.prodReceStockId}">
+                <input type="text" class="form-control required"  id="tradeDate" name="tradeDate" th:value="${#dates.format(tradeDate, 'yyyy-MM-dd HH:mm:ss')}"
+                       onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',startDate:'%y-%M-%d 00:00:00'})" readonly>
+            </div>
+            <div class="form-group">
+                <label for="prodName">物品：</label>
+                <input type="hidden" name="prodId" required id="prodId" th:value="${productReceiveStock.product.prodId}">
+                <input type="text" class="form-control required" id="prodName" name="prodName" th:value="${productReceiveStock.product.prodName}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="prodParamName">物品参数：</label>
+                <input type="hidden" name="prodParamId required" th:value="${productReceiveStock.productParameter.prodParamId}">
+                <input type="text" class="form-control required" id="prodParamName" name="prodParamName" th:value="${productReceiveStock.productParameter.prodParamName}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="prodParamName">现有数量：</label>
+                <input type="text" class="form-control" id="stockNum" name="stockNum" th:value="${productReceiveStock.stockNum}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="prodParamName">转入数量：</label>
+                <input type="text" class="form-control required digits" min="0"  id="tradeNum" name="tradeNum">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">待收库存转入现有库存</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

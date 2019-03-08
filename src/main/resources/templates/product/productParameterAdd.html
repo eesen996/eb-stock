@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/site.css">
+    <link rel="stylesheet" href="css/bootstrap-treeview.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-treeview.js"></script>
+    <script src="js/jquery.validate.min.js"></script>
+    <script src="js/jquery.message_cn.js"></script>
+</head>
+<body>
+<script>
+    $(function(){
+        $("#prodParamForm").validate();
+        if ($.validator) {
+            $.validator.prototype.elements = function () {
+                var validator = this,
+                    rulesCache = {};
+                return $(this.currentForm)
+                    .find("input, select, textarea")
+                    .not(":submit, :reset, :image, [disabled]")
+                    .not(this.settings.ignore)
+                    .filter(function () {
+                        if (!this.name && validator.settings.debug && window.console) {
+                            console.error("%o has no name assigned", this);
+                        }
+                        rulesCache[this.name] = true;
+                        return true;
+                    });
+            }
+        }
+    })
+</script>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        物品参数分类添加
+    </div>
+    <div class="panel-body">
+    <div>
+        <ul class="search_input">
+            <li></li>
+        </ul>
+    </div>
+    <div style="position:absolute;right: 25px;top: 8px;">
+        <ul class="search_input">
+            <li><button class="btn btn-primary btn-sm " id="prod_param_add_btn">增加新的参数</button></li>
+        </ul>
+    </div>
+    </div>
+    <div class="panel-body">
+        <form method="post" action="prodParamSave" id="prodParamForm">
+            <input type="hidden" name="prodId" th:value="${prodId}">
+            <div class="form-group">
+                <label for="prodParamName">分类参数名称</label>
+
+                <input type="text" class="form-control required"  id="prodParamName" name="prodParamName">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block" id="btn_prodParam_save" >保存</button>
+        </form>
+    </div>
+</div>
+</body>
+<script>
+    $(function(){
+
+        $("#prod_param_add_btn").click(function(){
+            var tmp="<div class=\"form-group\">\n" +
+                "                <label for=\"prodParamName\">分类参数名称</label>\n" +
+                "                <input type=\"text\" class=\"form-control required\"  id=\"prodParamName\" name=\"prodParamName\">\n" +
+                "            </div>"
+            $("#btn_prodParam_save").before(tmp)
+        });
+    })
+</script>
+</html>
